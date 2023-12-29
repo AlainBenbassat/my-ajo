@@ -77,14 +77,17 @@ class My_Ajo_Smoelenboek {
         $html .= '<img src="' . $contact['image_URL'] . '" class="ajo_tile_picture">';
       }
       else {
-        $html .= '<img src="https://www.ajo-amersfoort.nl/wp-content/uploads/2020/09/ajo-logo.png" class="ajo_tile_dummy_picture">';
+        $html .= '<img src="' . site_url() . '/wp-content/uploads/2020/09/ajo-logo.png" class="ajo_tile_dummy_picture">';
       }
 
       $html .= '</figure>';
 
       $html .= '<div>';
       $html .= '<span class="ajo_tile_first_name">' . $contact['first_name'] . '</span><br>';
-      $html .= '<span class="ajo_tile_last_name">' . $contact['last_name'] . '</span>';
+      $html .= '<span class="ajo_tile_last_name">' . $contact['last_name'] . '</span><br>';
+
+      $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
+      $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>'; //fa-link <i class="fa-solid fa-cloud-bolt"></i>
       $html .= '</div>';
 
 

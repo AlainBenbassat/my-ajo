@@ -6,7 +6,7 @@
     border: 1px solid lightgray;
     padding: 10px;
     text-align: center;
-    height: 200px;
+    height: 240px;
 }
 
 .ajo_tile_first_name {
@@ -15,6 +15,13 @@
 
 .ajo_tile_last_name {
 
+}
+
+i.ajo_tile_link {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background-image: url("link-31-32.png");
 }
 
 .ajo_tile_figure {
