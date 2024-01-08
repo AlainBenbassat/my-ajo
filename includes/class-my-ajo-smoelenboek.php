@@ -10,7 +10,8 @@ class My_Ajo_Smoelenboek {
       . self::getCelloContrabas()
       . self::getHoutblazers()
       . self::getKoperblazers()
-      . self::getSlagwerkHarp();
+      . self::getSlagwerkHarp()
+      . self::getCommissies();
   }
 
   private static function getEersteViool() {
@@ -61,40 +62,89 @@ class My_Ajo_Smoelenboek {
 
   private static function getOrkestGroepsLeden($civiIdOrkestGroep) {
     $huidigeOrkestLedenGroupId = 6;
+    $html = '';
 
     $contacts = \Civi\Api4\Contact::get(FALSE)
-      ->addSelect('first_name', 'last_name', 'image_URL')
+      ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', $huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Orkestgrplst', '=', $civiIdOrkestGroep)
       ->addOrderBy('sort_name', 'ASC')
       ->execute();
 
     foreach ($contacts as $contact) {
-      $html .= '<div class="ajo_tile">';
-      $html .= '<figure class="ajo_tile_figure">';
-
-      if ($contact['image_URL']) {
-        $html .= '<img src="' . $contact['image_URL'] . '" class="ajo_tile_picture">';
-      }
-      else {
-        $html .= '<img src="' . site_url() . '/wp-content/uploads/2020/09/ajo-logo.png" class="ajo_tile_dummy_picture">';
-      }
-
-      $html .= '</figure>';
-
-      $html .= '<div>';
-      $html .= '<span class="ajo_tile_first_name">' . $contact['first_name'] . '</span><br>';
-      $html .= '<span class="ajo_tile_last_name">' . $contact['last_name'] . '</span><br>';
-
-      $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
-      $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>'; //fa-link <i class="fa-solid fa-cloud-bolt"></i>
-      $html .= '</div>';
-
-
-      $html .= '</div>';
+      $html .= self::formatContactInfo($contact);
     }
 
     $html .= '<div class="ajo_clearfix"></div>';
+
+    return $html;
+  }
+
+  private static function concatNames($middleName, $lastName) {
+    if ($middleName) {
+      return "$middleName $lastName";
+    }
+    else {
+      return $lastName;
+    }
+  }
+
+  private static function getCommissies() {
+    $html = '<h2>Commissies</h2>';
+
+    $optionValues = \Civi\Api4\OptionValue::get(FALSE)
+      ->addSelect('label', 'value')
+      ->addWhere('option_group_id:label', '=', 'Commissie')
+      ->addOrderBy('weight', 'ASC')
+      ->execute();
+    foreach ($optionValues as $commissie) {
+      $html .= self::getCommissie($commissie);
+    }
+
+    return $html;
+  }
+
+  private static function getCommissie($commissie) {
+    $html = '';
+
+    $contacts = \Civi\Api4\Contact::get(FALSE)
+      ->addSelect('first_name', 'middle_name', 'last_name', 'image_URL')
+      ->addWhere('Extra_orkestlid_info.Commissie', '=', $commissie['value'])
+      ->execute();
+    foreach ($contacts as $contact) {
+      $html .= self::formatContactInfo($contact);
+    }
+
+    // only show the section if there are members
+    if ($html) {
+      $html = self::formatSectionTitle($commissie['label']) . $html . '<div class="ajo_clearfix"></div>';
+    }
+
+    return $html;
+  }
+
+  private static function formatContactInfo($contact) {
+    $html = '<div class="ajo_tile">';
+    $html .= '<figure class="ajo_tile_figure">';
+
+    if ($contact['image_URL']) {
+      $html .= '<img src="' . $contact['image_URL'] . '" class="ajo_tile_picture">';
+    }
+    else {
+      $html .= '<img src="' . site_url() . '/wp-content/uploads/2020/09/ajo-logo.png" class="ajo_tile_dummy_picture">';
+    }
+
+    $html .= '</figure>';
+
+    $html .= '<div>';
+    $html .= '<span class="ajo_tile_first_name">' . $contact['first_name'] . '</span><br>';
+    $html .= '<span class="ajo_tile_last_name">' . self::concatNames($contact['middle_name'], $contact['last_name']) . '</span><br>';
+
+    $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
+    $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>';
+    $html .= '</div>';
+
+    $html .= '</div>';
 
     return $html;
   }
