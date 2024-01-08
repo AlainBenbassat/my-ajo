@@ -90,7 +90,7 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function getCommissies() {
-    $html = '<h2>Commissies</h2>';
+    $html = '<h1>Commissies</h1>';
 
     $optionValues = \Civi\Api4\OptionValue::get(FALSE)
       ->addSelect('label', 'value')
@@ -109,6 +109,7 @@ class My_Ajo_Smoelenboek {
 
     $contacts = \Civi\Api4\Contact::get(FALSE)
       ->addSelect('first_name', 'middle_name', 'last_name', 'image_URL')
+      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', $huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Commissie', '=', $commissie['value'])
       ->execute();
     foreach ($contacts as $contact) {
