@@ -1,6 +1,7 @@
 <?php
 
 class My_Ajo_Smoelenboek {
+  private const huidigeOrkestLedenGroupId = 6;
 
   public static function get() {
     return
@@ -61,12 +62,11 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function getOrkestGroepsLeden($civiIdOrkestGroep) {
-    $huidigeOrkestLedenGroupId = 6;
     $html = '';
 
     $contacts = \Civi\Api4\Contact::get(FALSE)
       ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
-      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', $huidigeOrkestLedenGroupId])
+      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Orkestgrplst', '=', $civiIdOrkestGroep)
       ->addOrderBy('sort_name', 'ASC')
       ->execute();
@@ -109,7 +109,7 @@ class My_Ajo_Smoelenboek {
 
     $contacts = \Civi\Api4\Contact::get(FALSE)
       ->addSelect('first_name', 'middle_name', 'last_name', 'image_URL')
-      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', $huidigeOrkestLedenGroupId])
+      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Commissie', '=', $commissie['value'])
       ->execute();
     foreach ($contacts as $contact) {
