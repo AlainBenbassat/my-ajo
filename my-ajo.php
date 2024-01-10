@@ -26,4 +26,12 @@ function my_ajo_smoelenboek($atts, $content = null) {
   return My_Ajo_Smoelenboek::get();
 }
 
+function my_ajo_smoelenboek_mijn_gegevens($atts, $content = null) {
+  $contactIdFromQueryString = empty($_GET['id']) ? -1 : $_GET['id'];
+  if ($contactIdFromQueryString == CRM_Core_Session::singleton()->getLoggedInContactID()) {
+    return '<a href="https://www.ajo-amersfoort.nl/bijwerken-profiel/" class="button">Werk je gegevens bij</a><br>';
+  }
+}
+
 add_shortcode('smoelenboek', 'my_ajo_smoelenboek');
+add_shortcode('smoelenboek_mijn_gegevens', 'my_ajo_smoelenboek_mijn_gegevens');
