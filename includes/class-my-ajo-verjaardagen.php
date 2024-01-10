@@ -22,7 +22,7 @@ class MyAjo_Verjaardagen {
         }
 
         $html .= '<h2>In de maand ' . self::getMonthName($currentMonthNumber) . '</h2>';
-        $html = '<table>';
+        $html .= '<table>';
 
         $currentMonthNumber = substr($contact['birth_date'], 5, 2);
       }
