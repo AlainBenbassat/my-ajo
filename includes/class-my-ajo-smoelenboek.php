@@ -111,6 +111,7 @@ class My_Ajo_Smoelenboek {
       ->addSelect('first_name', 'middle_name', 'last_name', 'image_URL')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Commissie', '=', $commissie['value'])
+      ->addOrderBy('sort_name', 'ASC')
       ->execute();
     foreach ($contacts as $contact) {
       $html .= self::formatContactInfo($contact);
