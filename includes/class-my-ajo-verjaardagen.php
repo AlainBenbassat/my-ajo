@@ -5,7 +5,7 @@ class MyAjo_Verjaardagen {
     $html = '';
     $currentMonthNumber = '';
 
-    $contacts = \Civi\Api4\Contact::get(TRUE)
+    $contacts = \Civi\Api4\Contact::get(FALSE)
       ->addSelect('birth_date', 'next_birthday', 'first_name', 'middle_name', 'last_name', 'Extra_orkestlid_info.Hoofdinstrument')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['group_contact.contact_id', '=', 'id'])
       ->addWhere('birth_date', 'IS NOT NULL')
@@ -13,19 +13,19 @@ class MyAjo_Verjaardagen {
       ->addWhere('group_contact.group_id', '=', 6)
       ->addWhere('group_contact.status', '=', 'Added')
       ->addOrderBy('next_birthday', 'ASC')
-      ->setLimit(25)
       ->execute();
 
     foreach ($contacts as $contact) {
-      if (substr($contact['birth_date'], 5, 2) != $currentMonthNumber) {
+      $birthDayMonthNumber = substr($contact['birth_date'], 5, 2);
+      if ($birthDayMonthNumber != $currentMonthNumber) {
         if ($html) {
           $html .= '</table>';
         }
 
-        $html .= '<h2>In de maand ' . self::getMonthName($currentMonthNumber) . '</h2>';
+        $html .= '<h2>In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
         $html .= '<table>';
 
-        $currentMonthNumber = substr($contact['birth_date'], 5, 2);
+        $currentMonthNumber = $birthDayMonthNumber;
       }
 
       $html .= '<tr>';
