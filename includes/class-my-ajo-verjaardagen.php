@@ -31,7 +31,7 @@ class MyAjo_Verjaardagen {
       $html .= '<tr>';
       $html .= '<td>' . $contact['first_name'] . '</td>';
       $html .= '<td>' . $contact['middle_name'] . ' ' . $contact['last_name'] . '</td>';
-      $html .= '<td>' . substr($contact['birth_date'], 8, 2) . ' ' . self::getMonthName(substr($contact['birth_date'], 5, 2)) . '</td>';
+      $html .= '<td>' . substr($contact['birth_date'], 8, 2) . ' ' . self::getMonthName($birthDayMonthNumber) . '</td>';
       $html .= '<td>' . date('Y') - (int)substr($contact['birth_date'], 0, 4) . '</td>';
       $html .= '<td>' . $contact['Extra_orkestlid_info.Hoofdinstrument'] . '</td>';
       $html .= '</tr>';
