@@ -33,5 +33,13 @@ function my_ajo_smoelenboek_mijn_gegevens($atts, $content = null) {
   }
 }
 
+function my_ajo_verjaardagen_orkestleden() {
+  require_once __DIR__ . '/includes/class-my-ajo-verjaardagen.php';
+
+  return MyAjo_Verjaardagen::get();
+}
+
+
 add_shortcode('smoelenboek', 'my_ajo_smoelenboek');
 add_shortcode('smoelenboek_mijn_gegevens', 'my_ajo_smoelenboek_mijn_gegevens');
+add_shortcode('verjaardagen_orkestleden', 'my_ajo_verjaardagen_orkestleden');
