@@ -1,6 +1,7 @@
 <?php
 
 class MyAjo_Verjaardagen {
+  private const huidigeOrkestLedenGroupId = 6;
   public static function get() {
     $html = '';
     $currentMonthNumber = '';
@@ -10,7 +11,7 @@ class MyAjo_Verjaardagen {
       ->addJoin('GroupContact AS group_contact', 'INNER', ['group_contact.contact_id', '=', 'id'])
       ->addWhere('birth_date', 'IS NOT NULL')
       ->addWhere('next_birthday', '<=', 90)
-      ->addWhere('group_contact.group_id', '=', 6)
+      ->addWhere('group_contact.group_id', '=', self::huidigeOrkestLedenGroupId)
       ->addWhere('group_contact.status', '=', 'Added')
       ->addOrderBy('next_birthday', 'ASC')
       ->execute();
@@ -23,7 +24,7 @@ class MyAjo_Verjaardagen {
         }
 
         $html .= '<h2>In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
-        $html .= '<table>';
+        $html .= '<table class="ajo_verjaardagen">';
 
         $currentMonthNumber = $birthDayMonthNumber;
       }
@@ -32,7 +33,7 @@ class MyAjo_Verjaardagen {
       $html .= '<td>' . $contact['first_name'] . '</td>';
       $html .= '<td>' . $contact['middle_name'] . ' ' . $contact['last_name'] . '</td>';
       $html .= '<td>' . substr($contact['birth_date'], 8, 2) . ' ' . self::getMonthName($birthDayMonthNumber) . '</td>';
-      $html .= '<td>' . date('Y') - (int)substr($contact['birth_date'], 0, 4) . '</td>';
+      $html .= '<td>' . self::calculateAge($contact['birth_date']) . ' jaar</td>';
       $html .= '<td>' . $contact['Extra_orkestlid_info.Hoofdinstrument'] . '</td>';
       $html .= '</tr>';
     }
@@ -42,6 +43,18 @@ class MyAjo_Verjaardagen {
     }
 
     return $html;
+  }
+
+  private static function calculateAge($birthDate) {
+    $age = date('Y') - (int)substr($birthDate, 0, 4);
+
+    $birthDayMonthNumber = substr($birthDate, 5, 2);
+    if (date('m') > $birthDayMonthNumber) {
+      // is next year, so we need to increment the age
+      $age++;
+    }
+
+    return $age;
   }
 
   private static function getMonthName($monthNumber) {

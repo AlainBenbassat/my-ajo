@@ -43,3 +43,7 @@ i.ajo_tile_link {
     display: table;
     clear: both;
 }
+
+.ajo_verjaardagen td {
+    padding-right: 2em;
+}

@@ -35,6 +35,7 @@ function my_ajo_smoelenboek_mijn_gegevens($atts, $content = null) {
 
 function my_ajo_verjaardagen_orkestleden() {
   require_once __DIR__ . '/includes/class-my-ajo-verjaardagen.php';
+  wp_enqueue_style('my_ajo', plugin_dir_url( __FILE__ ) . 'public/css/my-ajo-public.css');
 
   return MyAjo_Verjaardagen::get();
 }
