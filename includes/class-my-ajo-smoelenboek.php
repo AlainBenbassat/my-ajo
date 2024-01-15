@@ -12,6 +12,7 @@ class My_Ajo_Smoelenboek {
       . self::getHoutblazers()
       . self::getKoperblazers()
       . self::getSlagwerkHarp()
+      . self::getNognietIngedeeld();
       . self::getCommissies();
   }
 
@@ -55,6 +56,12 @@ class My_Ajo_Smoelenboek {
     return
       self::formatSectionTitle('Slagwerk &amp; Harp')
       . self::getOrkestGroepsLeden(9);
+  }
+
+  private static function getNognietIngedeeld() {
+    return
+      self::formatSectionTitle('Nog niet ingedeelde orkestleden')
+      . self::getOrkestGroepsLeden(-1);
   }
 
   private static function formatSectionTitle($title) {
