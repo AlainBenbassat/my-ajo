@@ -61,11 +61,11 @@ class My_Ajo_Smoelenboek {
   private static function getNognietIngedeeld() {
     return
       self::formatSectionTitle('Nog niet ingedeelde orkestleden')
-      . self::getOrkestGroepsLeden(-1);
+      . self::getOrkestGroepsLeden(-1); // ik weet niet hoe je orkestleden die in geen enkele orkestgroep zijn ingedeeld adresseert. Dit is dus maar een wilde gok.
   }
 
   private static function formatSectionTitle($title) {
-    return "<h3>$title</h3>";
+    return "<h4 style="margin-top: 30px;">$title</h4>";
   }
 
   private static function getOrkestGroepsLeden($civiIdOrkestGroep) {
