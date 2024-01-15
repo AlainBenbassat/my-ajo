@@ -22,8 +22,8 @@ class MyAjo_Verjaardagen {
           $html .= '</table>';
         }
 
-        $html .= '<h2>In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
-        $html .= '<table>';
+        $html .= '<h2 style="margin-top: 30px;">In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
+        $html .= '<table style="width: 100%; max-width: 600px;">';
 
         $currentMonthNumber = $birthDayMonthNumber;
       }
@@ -32,8 +32,8 @@ class MyAjo_Verjaardagen {
       $html .= '<td>' . $contact['first_name'] . '</td>';
       $html .= '<td>' . $contact['middle_name'] . ' ' . $contact['last_name'] . '</td>';
       $html .= '<td>' . substr($contact['birth_date'], 8, 2) . ' ' . self::getMonthName($birthDayMonthNumber) . '</td>';
-      $html .= '<td>' . date('Y') - (int)substr($contact['birth_date'], 0, 4) . '</td>';
-      $html .= '<td>' . $contact['Extra_orkestlid_info.Hoofdinstrument'] . '</td>';
+      $html .= '<td>' . date('Y') - (int)substr($contact['birth_date'], 0, 4) . ' jaar</td>';
+      $html .= '<td>' . strtolower($contact['Extra_orkestlid_info.Hoofdinstrument']) . '</td>';
       $html .= '</tr>';
     }
 
