@@ -69,7 +69,7 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function formatSectionTitle($title) {
-    return "<h4>$title</h4>";
+    return "<h4 class='ajo_category'>$title</h4>";
   }
 
   private static function getOrkestGroepsLeden($civiIdOrkestGroep) {
