@@ -30,8 +30,8 @@ i.ajo_tile_link {
 
 i.ajo_tile_edit {
     display: inline-block;
-    height: 32px;
-    width: 32px;
+    height: 24px;
+    width: 24px;
     background-image: url("potloodje.png");
 }
 
