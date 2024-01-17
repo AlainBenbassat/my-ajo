@@ -87,8 +87,7 @@ class My_Ajo_Smoelenboek {
     $contacts = \Civi\Api4\Contact::get(FALSE)
       ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
-      ->addWhere('Extra_orkestlid_info.Orkestgrplst', 'IS NULL')
-      ->addClause('OR', ['Extra_orkestlid_info.Orkestgrplst', '=', ''])
+      ->addWhere('Extra_orkestlid_info.Orkestgrplst', 'IS EMPTY')
       ->addOrderBy('sort_name', 'ASC')
       ->execute();
 
