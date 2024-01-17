@@ -12,6 +12,7 @@ class My_Ajo_Smoelenboek {
       . self::getHoutblazers()
       . self::getKoperblazers()
       . self::getSlagwerkHarp()
+      . self::getNietIngedeeldeOrkestLeden()
       . self::getCommissies();
   }
 
@@ -68,6 +69,25 @@ class My_Ajo_Smoelenboek {
       ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Orkestgrplst', '=', $civiIdOrkestGroep)
+      ->addOrderBy('sort_name', 'ASC')
+      ->execute();
+
+    foreach ($contacts as $contact) {
+      $html .= self::formatContactInfo($contact);
+    }
+
+    $html .= '<div class="ajo_clearfix"></div>';
+
+    return $html;
+  }
+
+  private static function getNietIngedeeldeOrkestLeden() {
+    $html = '';
+
+    $contacts = \Civi\Api4\Contact::get(FALSE)
+      ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
+      ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
+      ->addWhere("ifnull(Extra_orkestlid_info.Orkestgrplst, '')", '=', '')
       ->addOrderBy('sort_name', 'ASC')
       ->execute();
 
