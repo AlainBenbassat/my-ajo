@@ -23,7 +23,7 @@ class MyAjo_Verjaardagen {
           $html .= '</table>';
         }
 
-        $html .= '<h2>In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
+        $html .= '<h2 class="ajo_verjaardagen-maanden">In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
         $html .= '<table class="ajo_verjaardagen">';
 
         $currentMonthNumber = $birthDayMonthNumber;
@@ -34,7 +34,7 @@ class MyAjo_Verjaardagen {
       $html .= '<td>' . $contact['middle_name'] . ' ' . $contact['last_name'] . '</td>';
       $html .= '<td>' . substr($contact['birth_date'], 8, 2) . ' ' . self::getMonthName($birthDayMonthNumber) . '</td>';
       $html .= '<td>' . self::calculateAge($contact['birth_date']) . ' jaar</td>';
-      $html .= '<td>' . $contact['Extra_orkestlid_info.Hoofdinstrument'] . '</td>';
+      $html .= '<td>' . strtolower($contact['Extra_orkestlid_info.Hoofdinstrument']) . '</td>';
       $html .= '</tr>';
     }
 

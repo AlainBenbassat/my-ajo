@@ -48,6 +48,15 @@ i.ajo_tile_link {
     clear: both;
 }
 
+table.ajo_verjaardagen {
+    width: 100%;
+    max-width: 600px;
+}
+
+h2.ajo_verjaardagen-maanden {
+    margin-top: 30px;
+}
+
 .ajo_verjaardagen td {
     padding-right: 2em;
 }
