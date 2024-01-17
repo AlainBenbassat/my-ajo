@@ -59,9 +59,13 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function getNognietIngedeeld() {
-    return
-      self::formatSectionTitle('Nog niet ingedeelde orkestleden')
-      . self::getNietIngedeeldeOrkestLeden();
+    $html = self::getNietIngedeeldeOrkestLeden();
+    if ($html) {
+      return self::formatSectionTitle('Nog niet ingedeelde orkestleden') . $html;
+    }
+    else {
+      return '';
+    }
   }
 
   private static function formatSectionTitle($title) {
