@@ -69,7 +69,7 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function formatSectionTitle($title) {
-    return "<h3>$title</h3>";
+    return "<h4>$title</h4>";
   }
 
   private static function getOrkestGroepsLeden($civiIdOrkestGroep) {
@@ -118,7 +118,7 @@ class My_Ajo_Smoelenboek {
   }
 
   private static function getCommissies() {
-    $html = '<h1>Commissies</h1>';
+    $html = '<h3>Commissies</h3>';
 
     $optionValues = \Civi\Api4\OptionValue::get(FALSE)
       ->addSelect('label', 'value')
