@@ -61,7 +61,7 @@ class My_Ajo_Smoelenboek {
   private static function getNognietIngedeeld() {
     $html = self::getNietIngedeeldeOrkestLeden();
     if ($html) {
-      return self::formatSectionTitle('Nog niet ingedeelde orkestleden') . $html;
+      return self::formatSectionTitle('Nog niet ingedeelde orkestleden') . $html . '<div class="ajo_clearfix"></div>';
     }
     else {
       return '';
@@ -104,8 +104,6 @@ class My_Ajo_Smoelenboek {
     foreach ($contacts as $contact) {
       $html .= self::formatContactInfo($contact);
     }
-
-    $html .= '<div class="ajo_clearfix"></div>';
 
     return $html;
   }
