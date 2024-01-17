@@ -23,7 +23,7 @@ class MyAjo_Verjaardagen {
           $html .= '</table>';
         }
 
-        $html .= '<h2 class="ajo_verjaardagen-maanden">In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h2>';
+        $html .= '<h4 class="ajo_verjaardagen-maanden">In de maand ' . self::getMonthName($birthDayMonthNumber) . '</h4>';
         $html .= '<table class="ajo_verjaardagen">';
 
         $currentMonthNumber = $birthDayMonthNumber;
