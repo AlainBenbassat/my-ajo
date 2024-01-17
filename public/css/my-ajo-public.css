@@ -28,6 +28,13 @@ i.ajo_tile_link {
     background-image: url("link-31-32.png");
 }
 
+i.ajo_tile_edit {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background-image: url("potloodje.png");
+}
+
 .ajo_tile_figure {
     max-height: 120px;
 }

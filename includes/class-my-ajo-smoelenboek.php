@@ -172,6 +172,12 @@ class My_Ajo_Smoelenboek {
 
     $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
     $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>';
+
+    if ($contact['id'] == CRM_Core_Session::singleton()->getLoggedInContactID()) {
+      $urlToEdit = site_url() . '/bijwerken-profiel';
+      $html .= '<a href="' . $urlToEdit . '"><i class="ajo_tile_edit"></i></a>';
+    }
+
     $html .= '</div>';
 
     $html .= '</div>';
