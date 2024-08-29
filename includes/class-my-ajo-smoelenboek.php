@@ -76,7 +76,7 @@ class My_Ajo_Smoelenboek {
     $html = '';
 
     $contacts = \Civi\Api4\Contact::get(FALSE)
-      ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL')
+      ->addSelect('first_name', 'last_name', 'middle_name', 'image_URL', 'Extra_orkestlid_info.Rol_in_orkestgroep:label')
       ->addJoin('GroupContact AS group_contact', 'INNER', ['id', '=', 'group_contact.contact_id'], ['group_contact.status', '=', "'Added'"], ['group_contact.group_id', '=', self::huidigeOrkestLedenGroupId])
       ->addWhere('Extra_orkestlid_info.Orkestgrplst', '=', $civiIdOrkestGroep)
       ->addOrderBy('sort_name', 'ASC')
@@ -166,9 +166,16 @@ class My_Ajo_Smoelenboek {
 
     $html .= '</figure>';
 
+    if (empty($contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'])) {
+      $role = '';
+    }
+    else {
+      $role = ' (' . $contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'] . ')';
+    }
+
     $html .= '<div>';
     $html .= '<span class="ajo_tile_first_name">' . $contact['first_name'] . '</span><br>';
-    $html .= '<span class="ajo_tile_last_name">' . self::concatNames($contact['middle_name'], $contact['last_name']) . '</span><br>';
+    $html .= '<span class="ajo_tile_last_name">' . self::concatNames($contact['middle_name'], $contact['last_name']) . $role . '</span><br>';
 
     $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
     $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>';
