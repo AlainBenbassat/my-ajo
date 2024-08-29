@@ -170,12 +170,12 @@ class My_Ajo_Smoelenboek {
       $role = '';
     }
     else {
-      $role = ' (' . $contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'] . ')';
+      $role = ' <span style="font-size: 80%">(' . $contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'] . ')</span>';
     }
 
     $html .= '<div>';
     $html .= '<span class="ajo_tile_first_name">' . $contact['first_name'] . '</span><br>';
-    $html .= '<span class="ajo_tile_last_name">' . self::concatNames($contact['middle_name'], $contact['last_name']) . $role . '</span><br>';
+    $html .= '<span class="ajo_tile_last_name">' . self::concatNames($contact['middle_name'], $contact['last_name']) . '</span>' . $role . '<br>';
 
     $urlToPersonDetails = site_url() . '/smoelenboek/smoelenboek-details/?q=civicrm%2Fprofile%2Fedit&reset=1&id=' . $contact['id'];
     $html .= '<a href="' . $urlToPersonDetails . '"><i class="ajo_tile_link"></i></a>';
