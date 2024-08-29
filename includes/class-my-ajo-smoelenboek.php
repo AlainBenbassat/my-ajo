@@ -170,7 +170,7 @@ class My_Ajo_Smoelenboek {
       $role = '';
     }
     else {
-      $role = ' <span style="font-size: 8px">(' . $contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'] . ')</span>';
+      $role = ' <span style="font-size: 70%">(' . $contact['Extra_orkestlid_info.Rol_in_orkestgroep:label'] . ')</span>';
     }
 
     $html .= '<div>';
